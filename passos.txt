@@ -104,6 +104,18 @@ para não aparecer isso eu coloco o @JsonIgnore
 
 
 40. Delete Mapping: deletando um recurso no servidor
+noContent() é um status de sucesso, porem não preciso retornar nada
+
+@DeleteMapping("api/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity delete(@PathVariable Integer id) {
+        Optional<Cliente> cliente = clientes.findById(id);
+        if (cliente.isPresent()) {
+            clientes.delete(cliente.get());
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 
 
 
