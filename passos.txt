@@ -1,0 +1,128 @@
+36. Criando o controller de clientes
+os controladores rest recebem requisições http e se comunicaç dentro da arquitetura resty
+como fazer para a classe entender isso?
+ precisa da dependencia de starter-web
+
+e colocar o @Controller na classe
+aqui fica as urls de acesso
+
+@RequestMapping("/api/clientes") todas as requisições com esse inicio cai nessa classe
+
+e dentro do metodo posso colocar, ele vem depois do da clase
+@RequestMapping("/hello)
+@RequestMapping("/hello/{nome}")
+dessa forma ele pega o que vem na requisição depois do hello/
+
+ex: localhost:9090/api/clientes/hello/rafael
+
+o codigo pega o rafael
+
+@Controller
+public class ClientController {
+
+    @RequestMapping(value = "api//clientes/{nome}", method = RequestMethod.GET)
+    @ResponseBody
+    public String hello(@PathVariable("nome") String nomeCliente) {
+        return nomeCliente;
+    }
+}
+
+
+37. Mapeando as Requisições com Request Mapping
+Quando for mais de uma url que o cliente pode acessar o metodo
+@RequestMapping(value = {"api//clientes/{nome}","api//clientes/banana" } method = RequestMethod.GET)
+
+posso colocar o consumer = { tipo do arquivo que vai chegar}
+
+@Controller
+public class ClientController {
+
+    @RequestMapping(value = "api//clientes/{nome}", method = RequestMethod.POST,
+            consumes = {"application/json", "application/xml"})
+    @ResponseBody
+    public String hello(@PathVariable("nome") String nomeCliente) {
+        return nomeCliente;
+    }
+}
+
+
+produces = a forma que eu vou retornar os dados
+@RequestMapping(value = "api//clientes/{nome}", method = RequestMethod.GET,
+            consumes = {"application/json", "application/xml"},
+            produces = {"application/json", "application/xml"})
+
+
+
+38. Requisição GET com parâmentros e Response Entity
+buscano um cliente usando um id
+@Controller
+public class ClientController {
+
+    @GetMapping("api/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity<Cliente> getClieneteById(@PathVariable Integer id) {
+
+    }
+}
+
+mas agora preciso ir no meu banco de dados e buscar esse clienete
+ResponseEntity = corresponde ao corpo dentro da resposta
+
+@GetMapping("api/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity<Cliente> getClieneteById(@PathVariable Integer id) {
+        Optional<Cliente> cliente = clientes.findById(id);
+        if (cliente.isPresent()) {
+            return ResponseEntity.ok(cliente.get());
+        }
+        return ResponseEntity.notFound().build();
+
+    }
+
+39. Requisicão POST e Request Body
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

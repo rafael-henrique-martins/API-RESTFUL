@@ -1,0 +1,8 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Users\fael_\Área de Trabalho\Cursos\Programas em Python\Programas em Java\Spring Web-Densenvolvendo API RESTFUL\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
