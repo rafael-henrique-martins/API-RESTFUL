@@ -80,14 +80,30 @@ ResponseEntity = corresponde ao corpo dentro da resposta
     }
 
 39. Requisicão POST e Request Body
+@RequestBody =  é o que esta chegando, o que vem na requisição
+@ResponseBody = é o que vou retornar
+
+ @PostMapping("api/clientes")
+    @ResponseBody
+    public ResponseEntity save(@RequestBody Cliente cliente) {
+        Cliente clientesalvo = clientes.save(cliente);
+        return ResponseEntity.ok(clientesalvo);
+    }
+
+exemplo de reuqisição:
+{
+"nome": "rafael"
+}
+
+No retorno da requisição esta voltando um campo que nao quero que volte, pedido desse clienet
+para não aparecer isso eu coloco o @JsonIgnore
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
 
 
-
-
-
-
-
-
+40. Delete Mapping: deletando um recurso no servidor
 
 
 
