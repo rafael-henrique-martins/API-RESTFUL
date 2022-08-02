@@ -135,17 +135,39 @@ o .map serve como um if, se caso achar o id vai executar algo
     }
 
 
+como enviar essa requisião?
+@PathVariable vai na url /api/clientes/1
+
+RequestBody vai no json
+
+
+42. Pesquisa de Clientes por parâmetros
+Example do springframework - ele pega um objeto(no caso filtro) pega as propriedades que stão populadas
+e vai criar um example
+
+ExampleMatcher - permite que faça algumas configurações para ele encontarr oo clientes atraves das propriedades
+desntro desse metodo posso colocar
+.withIgnoreCase - os valores que forem strings independentes deles estarem com caixa alta ou caixa baixa eu quero
+que ele considere na hora de encontrar o nome do cliente ou cpf
+.withStringMatcher() - é a forma que eu vou definir pra ele enconrar os valores string
+.withStringMatcher(.STARTING) - deve começar com os valores que foi populada no filtro
+.withStringMatcher(.CONTAINING) - exemplo que eu queira os clientes que tenham a letra a no nome, ele vai encontrar o que bater com a string que eu passei
+
+@GetMapping("/api/clientes")
+    @ResponseBody
+    public ResponseEntity find(Cliente filtro) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        Example example = Example.of(filtro, matcher);
+        List<Cliente> lista = clientes.findAll(example);
+        return ResponseEntity.ok(lista);
+    }
 
 
 
-
-
-
-
-
-
-
-
+posso fazer a requisição sem enviar parametros ou colocar na requisição assim
+api/clientes?nome=rafa
 
 
 

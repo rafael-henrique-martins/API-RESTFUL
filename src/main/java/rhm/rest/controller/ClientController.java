@@ -1,11 +1,14 @@
 package rhm.rest.controller;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import rhm.domain.entity.Cliente;
 import rhm.domain.repository.Clientes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -48,7 +51,7 @@ public class ClientController {
 
     @PutMapping("/api/clientes/{id}")
     @ResponseBody
-    public ResponseEntity update(@PathVariable Integer id, @RequestBody Cliente cliente ) {
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody Cliente cliente) {
         return clientes.findById(id).map(clienteExistente -> {
             cliente.setId(clienteExistente.getId());
             clientes.save(cliente);
@@ -56,4 +59,14 @@ public class ClientController {
         }).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
+    @GetMapping("/api/clientes")
+    @ResponseBody
+    public ResponseEntity find(Cliente filtro) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+        Example example = Example.of(filtro, matcher);
+        List<Cliente> lista = clientes.findAll(example);
+        return ResponseEntity.ok(lista);
+    }
 }
