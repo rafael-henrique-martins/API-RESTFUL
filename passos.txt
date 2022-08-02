@@ -170,10 +170,40 @@ posso fazer a requisição sem enviar parametros ou colocar na requisição assi
 api/clientes?nome=rafa
 
 
+43. @ResponseStatus e @RestController: Refatorando api de clientes
+Uma forma mais facil de se trabalhar com COntroler
+
+@RestControler - quer disser uqe posso tirar o @ResponseBory dos meus metodos
+posso colocaar o REquestMapping("api/clientes") posso eliminar do restante do codigo
+
+por padrão, quando não coloco o endereço completo dentro do @GetMapping() ele retorno 200 na quesição, mas preciso especificar para retornar outra coisa sem ser 200
+
+ResponseStatusException - o proprio spring entrega pra mim retornar a mensagem de erro para o cliente
+ResponseStatusException('Cliente não encontrado", HttpStatus.NOT_FOUND)
+@GetMapping("/{id}")
+    public Cliente getClieneteById(@PathVariable Integer id) {
+        Optional<Cliente> cliente = clientes.findById(id);
+        if (cliente.isPresent()) {
+            return cliente.get();
+        }
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado");
+
+    }
+
+ou
+@GetMapping("/{id}")
+    public Cliente getClieneteById(@PathVariable Integer id) {
+        return clientes
+                .findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+    }
 
 
+Atribindo um codigo de status diferente, dexemplo criação é 201 mas euestou retornando 200
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
 
-
+o delte retorna void
 
 
 
