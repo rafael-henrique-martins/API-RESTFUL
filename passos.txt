@@ -118,6 +118,23 @@ noContent() é um status de sucesso, porem não preciso retornar nada
     }
 
 
+41. Put Mapping - Atualizando um cliente
+nesse trecho de codigo:
+findById(id).map(clienteExistente -> {
+            cliente.setId(clienteExistente.getId());
+
+o .map serve como um if, se caso achar o id vai executar algo
+@PutMapping("/api/clientes/{id}")
+    @ResponseBody
+    public ResponseEntity update(@PathVariable Integer id, @RequestBody Cliente cliente ) {
+        return clientes.findById(id).map(clienteExistente -> {
+            cliente.setId(clienteExistente.getId());
+            clientes.save(cliente);
+            return ResponseEntity.noContent().build();
+        }).orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
+
 
 
 
