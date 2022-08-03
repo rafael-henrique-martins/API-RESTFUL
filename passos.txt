@@ -298,9 +298,38 @@ public class PedidoServiceImpl implements PedidoService {
 }
 
 
+49. Trabalahndo com modelo DTO
+Analisar a estrutura da arquitetura e definir com vai ser o json que vai chegar na requisição
+com isso podemos criar uma classe pra receber essa requisição
+
+arquitetura
+
+1 Cliente - 1 ou muitos Pedidos - 1 para muitos
+1 Pedido - 1 - ou muitos itens - 1 para muitos
+1 Produto - 1 ou muitos itens 1 - para muitos
 
 
+Json /pedidos
+{
+"cliente": 1,
+"total": 10,
+"itens": [{
+          "produto": 1,
+          "quantidade":10
+          }]
+}
+}
 
+com base nele eu crio um DTO data-trasfer-object
+esa classe serve para agente mapear um objeto com propriedades simples e recebe ele via requisição e depois
+pega os dados e cria nosso modelo de dados para persistir
+
+
+public class PedidoDTO {
+    private Integer cliente;
+    private BigDecimal total;
+    private List<ItemPedidoDTO> items;
+}
 
 
 

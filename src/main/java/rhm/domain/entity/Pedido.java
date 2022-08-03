@@ -27,22 +27,6 @@ public class Pedido {
     @OneToMany(mappedBy = "pedido")
     private List<ItemPedido> itens;
 
-    public Pedido(){}
-
-    public Pedido(Integer id, Cliente cliente, LocalDate dataPedido) {
-        this.id = id;
-        this.cliente = cliente;
-        this.dataPedido = dataPedido;
-    }
-
-    public Pedido(Integer id, Cliente cliente, LocalDate dataPedido, BigDecimal total, List<ItemPedido> itens) {
-        this.id = id;
-        this.cliente = cliente;
-        this.dataPedido = dataPedido;
-        this.total = total;
-        this.itens = itens;
-    }
-
     public List<ItemPedido> getItens() {
         return itens;
     }
