@@ -260,10 +260,42 @@ o delte retorna void
 
 
 
-45. Desafio da API de Produtos
+48. Criação de Controllers e Service de pedidos
+(Service) seria uma (Interface) que nada mais é do que um contrato, ou seja uma regra que obriga a
+classe que irá implementar essa interface a usar os metodos definidos nela, ou seja (Service) tem um
+conjunto de metodos definidos, mais não implementados e a (ServiceImpl) implementa a interface (Service)
+ou seja a (ServiceImpl) é obrigatória a implementar todos os metodos definidos na interface (Service)
+
+Ajuda nos testes unitarios e E2E
+Classe Service = Interface
+Classe serviceImpll = classe
+1- Anoto a classe Serviceimpl como @Service
+2- coloco implemesnts PedidoService
+3- em SERVICEIMPL é onde eu acesso meu repository
+
+No controller eu intancio a classe Service
 
 
+@RestController
+@RequestMapping("/{api/pedidos}")
+public class PedidoController {
 
+    private PedidoService service;
+
+    public PedidoController(PedidoService service) {
+        this.service = service;
+    }
+
+
+@Service
+public class PedidoServiceImpl implements PedidoService {
+
+    private Pedidos repository;
+
+    public PedidoServiceImpl(Pedidos repository) {
+        this.repository = repository;
+    }
+}
 
 
 
