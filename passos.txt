@@ -333,6 +333,52 @@ public class PedidoDTO {
 
 
 
+50. Utilizando o processo Lombok
+ela elimina a nessecidade da criação dos geters e seters
+
+da pra entrar no site dele e pegar a dependencia
+<dependencies>
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<version>1.18.24</version>
+		<scope>provided</scope>
+	</dependency>
+</dependencies>
+
+tirando os geters e seter e construtores da classe entity
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode -
+@NoArgsConstructor - construtor sem argumentos
+@AllArgsConstructor
+@Data - é uma compilação de algumas da anotations acima
+    @Getter
+    @Setter
+    @ToString
+    @EqualsAndHashCode
+
+
+exemplo para não retornar uma lista nula
+public List<ItemPedido> getItens(){
+        if(this.itens == null){
+            this.itens = new ArrayList<>();
+        }
+        return this.itens;
+    }
+
+@RequiredArgsConstructor - gera um construto com todos os argumentos obrigatorios do entity, os que tem que ser
+instanciados na criação da clasee esse são chamdos de final
+
+ex:
+@Service
+@RequiredArgsConstructor
+public class PedidoServiceImpl implements PedidoService {
+    @Autowired
+    private final Pedidos repository;
+
+
 
 
 
